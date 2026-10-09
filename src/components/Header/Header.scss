@@ -1,0 +1,36 @@
+@use "../../variables" as *;
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .Header-logo {
+    font-weight: bold;
+    font-size: 1.625rem;
+  }
+
+  .Header-mode {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .Header-mode_text {
+      color: $neutral500;
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .Header-mode_btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+
+      .Header-mode_btn-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+@use "./variables" as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: "Space Mono", monospace, sans-serif;
+  background-color: $neutral100;
+}
+
+#root {
+  display: grid;
+  place-items: center;
+}
+
+.App {
+  width: min(100%, 45.625rem);
+  margin: 2rem 1rem;
+
+  @media (min-width: 376px) {
+    margin: 2.5rem 2rem;
+  }
+}
