@@ -4,3 +4,21 @@ $neutral500: #4b6a9b;
 $neutral700: #2b3442;
 $neutral900: #141d2f;
 $blue500: #0079ff;
+
+@mixin title {
+  color: $neutral500;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+@mixin value {
+  color: $neutral700;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+@mixin stat-config {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}

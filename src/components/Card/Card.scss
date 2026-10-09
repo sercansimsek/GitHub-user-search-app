@@ -1,0 +1,211 @@
+@use "../../variables" as *;
+
+.Card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  background-color: $neutral0;
+
+  @media (min-width: 767px) {
+    padding: 3rem, 2rem;
+  }
+
+  &-hero {
+    display: flex;
+    gap: 1.25rem;
+    background-color: $neutral0;
+
+    @media (min-width: 767px) {
+      gap: 2rem;
+    }
+
+    &-image {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+
+      @media (min-width: 767px) {
+        width: 117px;
+        height: 117px;
+      }
+    }
+
+    &-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.125rem;
+      background-color: $neutral0;
+
+      @media (min-width: 767px) {
+        flex: 1;
+        min-width: 0;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+
+        @media (min-width: 767px) {
+          gap: 0;
+        }
+      }
+
+      &_name {
+        color: $neutral700;
+        font-size: 1.5rem;
+        font-weight: bold;
+        background-color: $neutral0;
+      }
+
+      &_tag {
+        color: $blue500;
+        font-size: 1rem;
+        background-color: $neutral0;
+      }
+
+      &_joined {
+        color: $neutral500;
+        font-size: 0.95rem;
+        background-color: $neutral0;
+      }
+    }
+  }
+
+  &-bio {
+    color: $neutral500;
+    font-size: 0.95rem;
+    background-color: $neutral0;
+  }
+
+  &-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-radius: 0.625rem;
+
+    &-repo {
+      @include stat-config;
+
+      &_title {
+        @include title;
+      }
+
+      &_repos {
+        @include value;
+      }
+    }
+
+    &-follower {
+      @include stat-config;
+
+      &_title {
+        @include title;
+      }
+
+      &_followers {
+        @include value;
+      }
+    }
+
+    &-following {
+      @include stat-config;
+
+      &_title {
+        @include title;
+      }
+
+      &_followings {
+        @include value;
+      }
+    }
+  }
+
+  &-social {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 1rem;
+    background-color: $neutral0;
+
+    &-location {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background-color: $neutral0;
+
+      &_icon {
+        width: 14px;
+        height: 20px;
+        background-color: $neutral0;
+      }
+
+      &_info {
+        background-color: $neutral0;
+        color: $neutral500;
+      }
+    }
+
+    &-x {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background-color: $neutral0;
+
+      &_icon {
+        height: 17px;
+        width: 20px;
+        background-color: $neutral0;
+      }
+
+      &_info {
+        background-color: $neutral0;
+        color: $neutral500;
+      }
+    }
+
+    &-blog {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background-color: $neutral0;
+
+      &_icon {
+        height: 20px;
+        width: 20px;
+        background-color: $neutral0;
+      }
+
+      &_info {
+        background-color: $neutral0;
+        color: $neutral500;
+      }
+    }
+
+    &-company {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background-color: $neutral0;
+
+      &_icon {
+        height: 20px;
+        width: 20px;
+        background-color: $neutral0;
+      }
+
+      &_info {
+        background-color: $neutral0;
+        color: $neutral500;
+      }
+    }
+  }
+}
