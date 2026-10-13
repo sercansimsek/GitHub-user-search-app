@@ -48,7 +48,9 @@ export const Card = () => {
 
         <div className="Card-social-x">
           <img className="Card-social-x_icon" src={x} alt="x official logo" />
-          <div className="Card-social-x_info">Not Available</div>
+          <a className="Card-social-x_info" href="/">
+            Not Available
+          </a>
         </div>
 
         <div className="Card-social-blog">
@@ -57,7 +59,9 @@ export const Card = () => {
             src={website}
             alt="engaged chains represents communication"
           />
-          <div className="Card-social-blog_info">https://github.blog</div>
+          <a className="Card-social-blog_info" href="/">
+            https://github.blog
+          </a>
         </div>
 
         <div className="Card-social-company">
@@ -66,7 +70,9 @@ export const Card = () => {
             src={company}
             alt="building icon represents workplace"
           />
-          <div className="Card-social-company_info">@github</div>
+          <a className="Card-social-company_info" href="/">
+            @github
+          </a>
         </div>
       </div>
     </div>

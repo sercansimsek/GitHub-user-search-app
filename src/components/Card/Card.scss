@@ -156,6 +156,23 @@
     gap: 1rem;
     background-color: $neutral0;
 
+    a {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 0.5rem;
+      text-decoration: none;
+
+      &:focus-visible {
+        outline: 2px solid $blue500;
+        outline-offset: 2px;
+        padding: 0.2rem;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
     @media (min-width: 768px) {
       grid-area: social;
       display: grid;

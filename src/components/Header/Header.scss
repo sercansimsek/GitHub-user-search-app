@@ -5,32 +5,34 @@
   justify-content: space-between;
   align-items: center;
 
-  .Header-logo {
+  &-logo {
     font-weight: bold;
     font-size: 1.625rem;
   }
 
-  .Header-mode {
+  &-mode {
     display: flex;
     align-items: center;
     gap: 0.75rem;
 
-    .Header-mode_text {
+    &_btn {
       color: $neutral500;
       font-size: 1rem;
       font-weight: bold;
       letter-spacing: 2px;
-    }
 
-    .Header-mode_btn {
       border: none;
       background: none;
       cursor: pointer;
 
-      .Header-mode_btn-icon {
-        width: 1.5rem;
-        height: 1.5rem;
+      &:hover {
+        color: $neutral700;
       }
+    }
+
+    &_icon {
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 }
