@@ -9,7 +9,7 @@ export const Card = () => {
   return (
     <div className="Card">
       <div className="Card-hero">
-        <img className="Card-hero-image" src="" alt="" />
+        <img className="Card-hero-image" src="null" alt="null" />
         <div className="Card-hero-info">
           <div>
             <span className="Card-hero-info_name">The Octocat</span>
