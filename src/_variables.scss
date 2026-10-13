@@ -1,11 +1,13 @@
 $neutral0: #fff;
 $neutral100: #f6f8ff;
+$neutral200: #90a4d4;
 $neutral300: #697c9a;
 $neutral500: #4b6a9b;
 $neutral700: #2b3442;
+$neutral800: #1e2a47;
 $neutral900: #141d2f;
-$blue500: #0079ff;
 $blue300: #60abff;
+$blue500: #0079ff;
 
 @mixin title {
   color: $neutral500;

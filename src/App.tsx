@@ -78,7 +78,7 @@ export const App = () => {
         hasError={hasError}
         errMsg={errMsg}
       />
-      {user?.name && !hasError ? <Card user={user} /> : <ErrorPage />}
+      {user && !hasError ? <Card user={user} /> : <ErrorPage />}
     </div>
   );
 };

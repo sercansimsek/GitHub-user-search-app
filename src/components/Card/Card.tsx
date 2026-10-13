@@ -66,7 +66,14 @@ export const Card = ({ user }: Props) => {
 
         <div className="Card-social-x">
           <img className="Card-social-x_icon" src={x} alt="x official logo" />
-          <a className="Card-social-x_info" href="/">
+          <a
+            className="Card-social-x_info"
+            href={
+              user.twitter_username
+                ? `https://x.com/${user.twitter_username}`
+                : ""
+            }
+          >
             {user.twitter_username !== null
               ? user.twitter_username
               : "Not Available"}
@@ -79,7 +86,10 @@ export const Card = ({ user }: Props) => {
             src={website}
             alt="engaged chains represents communication"
           />
-          <a className="Card-social-blog_info" href="/">
+          <a
+            className="Card-social-blog_info"
+            href={user.blog ? `${user.blog}` : ""}
+          >
             {user.blog ? user.blog : "Not Available"}
           </a>
         </div>
@@ -90,7 +100,10 @@ export const Card = ({ user }: Props) => {
             src={company}
             alt="building icon represents workplace"
           />
-          <a className="Card-social-company_info" href="/">
+          <a
+            className="Card-social-company_info"
+            href={user.company ? `${user.company}` : ""}
+          >
             {user.company ? user.company : "Not Available"}
           </a>
         </div>
