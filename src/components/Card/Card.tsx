@@ -5,34 +5,52 @@ import x from "../../assets/images/icon-twitter.svg";
 import website from "../../assets/images/icon-website.svg";
 import company from "../../assets/images/icon-company.svg";
 
-export const Card = () => {
+import type { User } from "../../App";
+
+type Props = {
+  user: User;
+};
+
+export const Card = ({ user }: Props) => {
   return (
     <div className="Card">
       <div className="Card-hero">
-        <img className="Card-hero-image" src="null" alt="null" />
+        <img
+          className="Card-hero-image"
+          src={user.avatar_url}
+          alt="user avatar"
+        />
         <div className="Card-hero-info">
           <div>
-            <span className="Card-hero-info_name">The Octocat</span>
-            <span className="Card-hero-info_tag">@octotat</span>
+            <span className="Card-hero-info_name">{user.name}</span>
+            <span className="Card-hero-info_tag">{`@${user.login}`}</span>
           </div>
-          <span className="Card-hero-info_joined">Joined 25 Jan 2011</span>
+          <span className="Card-hero-info_joined">
+            {new Date(user.created_at).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
+          </span>
         </div>
       </div>
-      <div className="Card-bio">This profile has no bio</div>
+      <div className="Card-bio">
+        {user.bio !== null ? user.bio : "This profile has no bio"}
+      </div>
       <div className="Card-stat">
         <div className="Card-stat-repo">
           <div className="Card-stat-repo_title">Repos</div>
-          <div className="Card-stat-repo_repos">8</div>
+          <div className="Card-stat-repo_repos">{user.public_repos}</div>
         </div>
 
         <div className="Card-stat-follower">
           <div className="Card-stat-follower_title">Followers</div>
-          <div className="Card-stat-follower_followers">3938</div>
+          <div className="Card-stat-follower_followers">{user.followers}</div>
         </div>
 
         <div className="Card-stat-following">
           <div className="Card-stat-following_title">Following</div>
-          <div className="Card-stat-following_followings">9</div>
+          <div className="Card-stat-following_followings">{user.following}</div>
         </div>
       </div>
 
@@ -43,13 +61,15 @@ export const Card = () => {
             src={location}
             alt="location icon"
           />
-          <div className="Card-social-location_info">San Francisco</div>
+          <div className="Card-social-location_info">{user.location}</div>
         </div>
 
         <div className="Card-social-x">
           <img className="Card-social-x_icon" src={x} alt="x official logo" />
           <a className="Card-social-x_info" href="/">
-            Not Available
+            {user.twitter_username !== null
+              ? user.twitter_username
+              : "Not Available"}
           </a>
         </div>
 
@@ -60,7 +80,7 @@ export const Card = () => {
             alt="engaged chains represents communication"
           />
           <a className="Card-social-blog_info" href="/">
-            https://github.blog
+            {user.blog ? user.blog : "Not Available"}
           </a>
         </div>
 
@@ -71,7 +91,7 @@ export const Card = () => {
             alt="building icon represents workplace"
           />
           <a className="Card-social-company_info" href="/">
-            @github
+            {user.company ? user.company : "Not Available"}
           </a>
         </div>
       </div>

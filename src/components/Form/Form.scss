@@ -35,6 +35,13 @@
       flex: 1;
       min-width: 0;
 
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0 1000px $neutral0 inset;
+        -webkit-text-fill-color: $neutral700;
+      }
+
       &::placeholder {
         color: $neutral500;
         font-size: 0.72rem;

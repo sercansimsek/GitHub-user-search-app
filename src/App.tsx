@@ -1,29 +1,67 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Card } from "./components/Card/Card";
 import { Form } from "./components/Form/Form";
 import { Header } from "./components/Header/Header";
 
+export interface User {
+  avatar_url: string;
+  name: string;
+  login: string;
+  created_at: Date;
+  public_repos: number;
+  bio: string | null;
+  followers: number;
+  following: number;
+  location: string;
+  twitter_username: string | null;
+  blog: string | null;
+  company: string | null;
+}
+
 export const App = () => {
-  const [query, setQuery] = useState("octocat");
-  const [user, setUser] = useState();
+  const [query, setQuery] = useState("");
+  const [user, setUser] = useState<User>();
+  const [errMsg, setErrMsg] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
 
-    const response = await fetch(
-      `https://api.github.com/users/${encodeURIComponent(query)}`,
-    );
-    const data = await response.json();
-    setUser(data);
+      const response = await fetch(
+        `https://api.github.com/users/${encodeURIComponent(query)}`,
+      );
+      const data = await response.json();
+      setUser(data);
+    } catch (error) {
+      console.error("Failed to fetch the user", error);
+      setErrMsg(error instanceof Error ? error.message : String(error));
+    } finally {
+      setQuery("");
+    }
   };
 
-  console.log(user);
+  useEffect(() => {
+    const loadInitialUser = async () => {
+      const response = await fetch("https://api.github.com/users/octocat");
+
+      if (!response.ok) {
+        throw new Error(`Could not load octocat: ${response.status}`);
+      }
+
+      const data: User = await response.json();
+      setUser(data);
+    };
+
+    loadInitialUser().catch((error) => {
+      console.error("Failed to load the initial user:", error);
+    });
+  }, []);
 
   return (
     <div className="App">
       <Header />
       <Form query={query} onSetQuery={setQuery} onSubmit={handleSubmit} />
-      <Card />
+      {user && <Card user={user} />}
     </div>
   );
 };
