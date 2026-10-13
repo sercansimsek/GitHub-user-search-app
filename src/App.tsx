@@ -26,20 +26,28 @@ export const App = () => {
   const [errMsg, setErrMsg] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    try {
-      event.preventDefault();
+    event.preventDefault();
+    setHasError(false);
+    setErrMsg("");
 
+    try {
       const response = await fetch(
         `https://api.github.com/users/${encodeURIComponent(query)}`,
       );
+
+      if (!response.ok) {
+        setErrMsg("No results");
+        setHasError(true);
+        return;
+      }
+
       const data = await response.json();
       setUser(data);
+      setQuery("");
     } catch (error) {
       console.error("Failed to fetch the user", error);
-      setErrMsg(error instanceof Error ? error.message : String(error));
+      setErrMsg("Unable to search. Check your connection and try again.");
       setHasError(true);
-    } finally {
-      setQuery("");
     }
   };
 
@@ -63,12 +71,14 @@ export const App = () => {
   return (
     <div className="App">
       <Header />
-      <Form query={query} onSetQuery={setQuery} onSubmit={handleSubmit} />
-      {user?.name ? (
-        <Card user={user} />
-      ) : (
-        <ErrorPage hasError={hasError} errMsg={errMsg} />
-      )}
+      <Form
+        query={query}
+        onSetQuery={setQuery}
+        onSubmit={handleSubmit}
+        hasError={hasError}
+        errMsg={errMsg}
+      />
+      {user?.name && !hasError ? <Card user={user} /> : <ErrorPage />}
     </div>
   );
 };
