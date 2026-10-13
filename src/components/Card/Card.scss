@@ -9,8 +9,16 @@
   padding: 2rem 1.5rem;
   background-color: $neutral0;
 
-  @media (min-width: 767px) {
-    padding: 3rem, 2rem;
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 117px minmax(0, 1fr);
+    gap: 2rem;
+    grid-template-areas:
+      "avatar info"
+      ". bio"
+      ". stat"
+      ". social";
+    padding: 3rem 2rem;
   }
 
   &-hero {
@@ -18,8 +26,8 @@
     gap: 1.25rem;
     background-color: $neutral0;
 
-    @media (min-width: 767px) {
-      gap: 2rem;
+    @media (min-width: 768px) {
+      display: contents;
     }
 
     &-image {
@@ -27,7 +35,8 @@
       height: 70px;
       border-radius: 50%;
 
-      @media (min-width: 767px) {
+      @media (min-width: 768px) {
+        grid-area: avatar;
         width: 117px;
         height: 117px;
       }
@@ -39,7 +48,8 @@
       gap: 0.125rem;
       background-color: $neutral0;
 
-      @media (min-width: 767px) {
+      @media (min-width: 768px) {
+        grid-area: info;
         flex: 1;
         min-width: 0;
         flex-direction: row;
@@ -82,6 +92,10 @@
     color: $neutral500;
     font-size: 0.95rem;
     background-color: $neutral0;
+
+    @media (min-width: 768px) {
+      grid-area: bio;
+    }
   }
 
   &-stat {
@@ -90,6 +104,12 @@
     gap: 1rem;
     padding: 1rem 1.25rem;
     border-radius: 0.625rem;
+
+    @media (min-width: 768px) {
+      grid-area: stat;
+      flex-direction: row;
+      justify-content: space-around;
+    }
 
     &-repo {
       @include stat-config;
@@ -135,6 +155,13 @@
 
     gap: 1rem;
     background-color: $neutral0;
+
+    @media (min-width: 768px) {
+      grid-area: social;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 1.5rem;
+    }
 
     &-location {
       display: flex;
