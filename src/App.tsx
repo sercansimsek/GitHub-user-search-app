@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Card } from "./components/Card/Card";
 import { Form } from "./components/Form/Form";
 import { Header } from "./components/Header/Header";
+import { ErrorPage } from "./components/ErrorPage/ErrorPage";
 
 export interface User {
   avatar_url: string;
@@ -21,6 +22,7 @@ export interface User {
 export const App = () => {
   const [query, setQuery] = useState("");
   const [user, setUser] = useState<User>();
+  const [hasError, setHasError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -35,6 +37,7 @@ export const App = () => {
     } catch (error) {
       console.error("Failed to fetch the user", error);
       setErrMsg(error instanceof Error ? error.message : String(error));
+      setHasError(true);
     } finally {
       setQuery("");
     }
@@ -61,7 +64,11 @@ export const App = () => {
     <div className="App">
       <Header />
       <Form query={query} onSetQuery={setQuery} onSubmit={handleSubmit} />
-      {user && <Card user={user} />}
+      {user?.name ? (
+        <Card user={user} />
+      ) : (
+        <ErrorPage hasError={hasError} errMsg={errMsg} />
+      )}
     </div>
   );
 };

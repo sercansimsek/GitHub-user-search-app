@@ -1,0 +1,24 @@
+@use "../../variables" as *;
+
+.Errorpage {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  border-radius: 1rem;
+  padding: 3rem;
+  text-align: center;
+  background-color: $neutral0;
+
+  &-title {
+    color: $neutral700;
+    font-weight: bold;
+    background-color: $neutral0;
+  }
+
+  &-text {
+    color: $neutral300;
+    background-color: $neutral0;
+    font-size: 0.9rem;
+  }
+}
