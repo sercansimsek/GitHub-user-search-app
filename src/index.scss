@@ -6,12 +6,13 @@
   box-sizing: border-box;
 
   font-family: "Space Mono", monospace, sans-serif;
-  background-color: $neutral100;
 }
 
 #root {
   display: grid;
   place-items: center;
+  background-color: var(--page-background);
+  color: var(--text);
 
   @media (min-width: 767px) {
     min-height: 100vh;

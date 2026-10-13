@@ -24,6 +24,9 @@ export const App = () => {
   const [user, setUser] = useState<User>();
   const [hasError, setHasError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
+  const [isLightMode, setIsLightMode] = useState(true);
+
+  console.log(isLightMode);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -68,15 +71,20 @@ export const App = () => {
     });
   }, []);
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = isLightMode ? "light" : "dark";
+  }, [isLightMode]);
+
   return (
     <div className="App">
-      <Header />
+      <Header isLightMode={isLightMode} onSetIsLightMode={setIsLightMode} />
       <Form
         query={query}
         onSetQuery={setQuery}
         onSubmit={handleSubmit}
         hasError={hasError}
         errMsg={errMsg}
+        isLightMode={isLightMode}
       />
       {user && !hasError ? <Card user={user} /> : <ErrorPage />}
     </div>

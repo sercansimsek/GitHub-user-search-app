@@ -9,6 +9,17 @@ $neutral900: #141d2f;
 $blue300: #60abff;
 $blue500: #0079ff;
 
+:root,
+:root[data-theme="light"] {
+  --page-background: #{$neutral100};
+  --text: #{$neutral700};
+}
+
+:root[data-theme="dark"] {
+  --page-background: #{$neutral900};
+  --text: #fff;
+}
+
 @mixin title {
   color: $neutral500;
   font-size: 0.9rem;

@@ -8,6 +8,7 @@ type Props = {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   hasError: boolean;
   errMsg: string;
+  isLightMode: boolean;
 };
 
 export const Form = ({
@@ -16,13 +17,14 @@ export const Form = ({
   onSubmit,
   errMsg,
   hasError,
+  isLightMode,
 }: Props) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onSetQuery(e.target.value);
   };
 
   return (
-    <form className="Form" onSubmit={onSubmit}>
+    <form className={isLightMode ? "Form" : "Form-dark"} onSubmit={onSubmit}>
       <div className="Form-search">
         <label htmlFor="Form-input">
           <img src={search} alt="search icon" className="Form-input_icon" />

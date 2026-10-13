@@ -1,6 +1,11 @@
 @use "../../variables" as *;
 
-.Form {
+.Form,
+.Form-dark {
+  --form-surface: #{$neutral0};
+  --form-text: #{$neutral700};
+  --form-placeholder: #{$neutral500};
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,7 +13,8 @@
 
   padding: 0.5rem 0.75rem;
   border-radius: 1rem;
-  background-color: $neutral0;
+
+  background-color: var(--form-surface);
 
   &-search {
     display: flex;
@@ -16,7 +22,7 @@
     gap: 0.75rem;
     flex: 1;
     min-width: 0;
-    background-color: $neutral0;
+    background-color: var(--form-surface);
 
     label {
       display: flex;
@@ -27,17 +33,18 @@
       min-width: 0;
 
       padding: 0.4rem 0.1rem;
-      background-color: $neutral0;
+      background-color: var(--form-surface);
 
       .Form-input_icon {
         height: 20px;
         width: 20px;
-        background-color: $neutral0;
+        background-color: var(--form-surface);
       }
 
       .Form-input {
         border: none;
-        background-color: $neutral0;
+        background-color: var(--form-surface);
+        color: var(--form-text);
         outline: none;
 
         flex: 1;
@@ -46,12 +53,12 @@
         &:-webkit-autofill,
         &:-webkit-autofill:hover,
         &:-webkit-autofill:focus {
-          -webkit-box-shadow: 0 0 0 1000px $neutral0 inset;
-          -webkit-text-fill-color: $neutral700;
+          -webkit-box-shadow: 0 0 0 1000px var(--form-surface) inset;
+          -webkit-text-fill-color: var(--form-text);
         }
 
         &::placeholder {
-          color: $neutral500;
+          color: var(--form-placeholder);
           font-size: 0.72rem;
 
           @media (min-width: 767px) {
@@ -66,7 +73,7 @@
       color: #f00;
       font-size: 0.75rem;
       font-weight: bold;
-      background-color: $neutral0;
+      background-color: var(--form-surface);
 
       @media (min-width: 767px) {
         font-size: 1rem;
@@ -87,4 +94,10 @@
       background-color: $blue300;
     }
   }
+}
+
+.Form-dark {
+  --form-surface: #{$neutral800};
+  --form-text: #{$neutral0};
+  --form-placeholder: #{$neutral0};
 }
