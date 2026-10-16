@@ -62,7 +62,9 @@ export const Card = ({ user, isLightMode }: Props) => {
             src={location}
             alt="location icon"
           />
-          <div className="Card-social-location_info">{user.location}</div>
+          <div className="Card-social-location_info">
+            {user.location ? `${user.location}` : "Not Available"}
+          </div>
         </div>
 
         <div className="Card-social-x">

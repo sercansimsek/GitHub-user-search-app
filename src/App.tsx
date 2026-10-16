@@ -33,9 +33,17 @@ export const App = () => {
     setHasError(false);
     setErrMsg("");
 
+    const username = query.trim();
+
+    if (!username) {
+      setErrMsg("Enter a GitHub username.");
+      setHasError(true);
+      return;
+    }
+
     try {
       const response = await fetch(
-        `https://api.github.com/users/${encodeURIComponent(query)}`,
+        `https://api.github.com/users/${encodeURIComponent(username)}`,
       );
 
       if (!response.ok) {
