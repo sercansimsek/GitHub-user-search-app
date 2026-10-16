@@ -86,7 +86,11 @@ export const App = () => {
         errMsg={errMsg}
         isLightMode={isLightMode}
       />
-      {user && !hasError ? <Card user={user} /> : <ErrorPage />}
+      {user && !hasError ? (
+        <Card user={user} isLightMode={isLightMode} />
+      ) : (
+        <ErrorPage isLightMode={isLightMode} />
+      )}
     </div>
   );
 };

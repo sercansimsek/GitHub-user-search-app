@@ -9,11 +9,12 @@ import type { User } from "../../App";
 
 type Props = {
   user: User;
+  isLightMode: boolean;
 };
 
-export const Card = ({ user }: Props) => {
+export const Card = ({ user, isLightMode }: Props) => {
   return (
-    <div className="Card">
+    <div className={isLightMode ? "Card" : "Card-dark"}>
       <div className="Card-hero">
         <img
           className="Card-hero-image"

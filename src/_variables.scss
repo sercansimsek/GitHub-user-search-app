@@ -27,7 +27,7 @@ $blue500: #0079ff;
 }
 
 @mixin value {
-  color: $neutral700;
+  color: var(--form-mixin-color);
   font-weight: bold;
   font-size: 1.4rem;
 }

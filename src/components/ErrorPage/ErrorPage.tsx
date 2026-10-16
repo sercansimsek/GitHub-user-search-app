@@ -1,9 +1,13 @@
 import "./Error.scss";
 
-export const ErrorPage = () => {
+type Props = {
+  isLightMode: boolean;
+};
+
+export const ErrorPage = ({ isLightMode }: Props) => {
   return (
     <>
-      <div className="Errorpage">
+      <div className={isLightMode ? "Errorpage" : "Errorpage-dark"}>
         <h2 className="Errorpage-title">No results found!</h2>
         <span className="Errorpage-text">
           We couldn’t find any GitHub users matching your search. Please
