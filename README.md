@@ -1,116 +1,157 @@
-# Frontend Mentor - GitHub user search app
+# GitHub User Search App
 
-![Design preview for the GitHub user search app coding challenge](./preview.jpg)
+A React and TypeScript practice project built to improve my skills in working with third-party APIs, managing asynchronous data, and creating responsive, interactive user interfaces.
 
-## Welcome! 👋
+The app allows users to search for GitHub profiles and explore information such as repositories, followers, following, location, and profile links. It also includes light and dark themes for a more personalized experience.
 
-Thanks for purchasing this premium Frontend Mentor coding challenge.
+## ✨ Features
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects. These premium challenges are perfect portfolio pieces, so please feel free to use what you create in your portfolio to show others.
-
-**To do this challenge, you need a good understanding of HTML, CSS, and JavaScript.**
-
-## The challenge
-
-Your challenge is to build out this GitHub user search app using the [GitHub users API](https://docs.github.com/en/rest/reference/users#get-a-user) and get it looking as close to the design as possible.
-
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
-
-Your users should be able to:
-
-- View the optimal layout for the app depending on their device's screen size
-- See hover states for all interactive elements on the page
-- Search for GitHub users by their username
-- See relevant user information based on their search
+- Search for GitHub users by username
+- Display profile information dynamically using the GitHub REST API
+- Show profile details, including avatar, bio, repositories, followers, and following
+- Display an initial GitHub profile when the app loads
+- Handle unsuccessful searches and network errors
 - Switch between light and dark themes
-- **Bonus**: Have the correct color scheme chosen for them based on their computer preferences. _Hint_: Research `prefers-color-scheme` in CSS.
+- Responsive interface for different screen sizes
+- Type-safe data handling with TypeScript
 
-### Want some support on the challenge?
+## 🛠️ Technologies Used
 
-[Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
+### Core technologies
 
-The GitHub users API endpoint is `https://api.github.com/users/:username`. So, if you wanted to search for the Octocat profile, you'd be able to make a request to `https://api.github.com/users/octocat`.
+- **React 19** — Building reusable UI components and managing application state
+- **TypeScript** — Defining data structures and improving type safety
+- **Vite** — Providing the development server and production build tooling
+- **SCSS / Sass** — Organizing styles and implementing themes and responsive layouts
+- **HTML5** — Structuring the application
+- **CSS3** — Styling the interface, responsive layouts, and interactive states
 
-### Expected behaviour
+### API integration
 
-- On first load, show the profile information for Octocat.
-- Display an error message (as shown in the design) if no user is found when a new search is made.
-- If a GitHub user hasn't added their name, show their username where the name would be without the `@` symbol and again below with the `@` symbol.
-- If a GitHub user's bio is empty, show the text "This profile has no bio" with transparency added (as shown in the design). The lorem ipsum text in the designs shows how the bio should look when it is present.
-- If any of the location, website, twitter, or company properties are empty, show the text "Not Available" with transparency added (as shown in the design).
-- Website, twitter, and company information should all be links to those resaources. For the company link, it should remove the `@` symbol and link to the company page on GitHub. For Octocat, with `@github` being returned for the company, this would lead to a URL of `https://github.com/github`.
+- **GitHub REST API** — Retrieving user profiles and their public GitHub information
+- **Fetch API** — Making asynchronous HTTP requests to the GitHub API
 
-## Where to find everything
+### Development tools
 
-Your task is to build out the project to the design file provided. You can download the Figma design file on the platform. **Please be sure not to share it with anyone else.** The design download comes with a `README.md` file as well to help you get set up.
+- **ESLint** — Identifying potential code issues and maintaining code quality
+- **React Hooks** — Managing component state and side effects with `useState` and `useEffect`
 
-All the required assets for this project are in the `/assets` folder. The assets are already exported for the correct screen size and optimized. Some images are reusable at multiple screen sizes. So if you don't see an image in a specific folder, it will typically be in another folder for that page.
+## 📚 Most Crucial Learning
 
-The design system in the design file will give you more information about the various colors, fonts, and styles used in this project.
+### Connecting a React application to a real API
 
-## Using AI coding assistants
+The most important lesson from this project was learning how to retrieve external data, manage the different outcomes of an API request, and display the results dynamically in a React application.
 
-We've included two files to help you if you're using AI coding assistants (like Claude, GitHub Copilot, Cursor, etc.) while working on this challenge:
+Instead of relying on static data, the app sends a request to the GitHub API using the requested username:
 
-- `AGENTS.md` - Contains detailed instructions for AI assistants on how to help you with this challenge. It's tailored to this challenge's difficulty level, so the AI will provide guidance appropriate to your learning stage—offering more support for beginner challenges and encouraging more independence on advanced ones.
-- `CLAUDE.md` - A pointer file that directs Claude-based tools to the AGENTS.md instructions.
+```ts
+const response = await fetch(
+  `https://api.github.com/users/${encodeURIComponent(query)}`,
+);
+```
 
-**How to use them:** You don't need to do anything! These files are automatically detected by most AI coding tools. The AI will read them and adjust its behavior to be a better learning partner—guiding you toward solutions rather than just giving you the answers.
+The application then checks whether the request was successful, processes the JSON response, and updates the user state:
 
-**Note:** These files are designed to help you _learn_, not to do the work for you. The AI is instructed to ask questions, give hints, and explain concepts rather than writing complete solutions.
+```ts
+if (!response.ok) {
+  setErrMsg("No results");
+  setHasError(true);
+  return;
+}
 
-## Building your project
+const data = await response.json();
+setUser(data);
+```
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+This helped me understand the complete data flow:
 
-1. Separate the `starter-code` from the rest of this project and rename it to something meaningful for you. Initialize the codebase as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/). **⚠️ IMPORTANT ⚠️: There are already a couple of `.gitignore` files in this project. Please do not remove them or change the content of the files. If you create a brand new project, please use the `.gitignore` files provided in your new codebase. This is to avoid the accidental upload of the Figma design file to GitHub. With these premium challenges, please be sure not to share the Figma design file in your GitHub repo. Thanks!**
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+**User input → API request → Response handling → React state → UI update**
 
-## Deploying your project
+I also learned that API integration involves more than successfully fetching data. A reliable application must account for unsuccessful responses, network errors, and situations where the requested user cannot be found.
 
-As mentioned above, there are many ways to host your project for free. Our recommended hosts are:
+## 💡 Other Key Learnings
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+### 1. Managing state and side effects in React
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://www.frontendmentor.io/guides/hosting-your-solution).
+I practiced using `useState` to manage several aspects of the application:
 
-## Create a custom `README.md`
+- The username entered into the search field
+- The currently displayed GitHub user
+- Error messages and error states
+- The selected color theme
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+I also used `useEffect` to load an initial profile when the application starts and to update the document's theme attribute when the theme changes.
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
+This reinforced how React state and side effects help keep an interface synchronized with application data.
 
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
+### 2. Working with TypeScript and external data
 
-## Submitting your solution
+I defined a `User` interface to describe the profile information used by the application.
 
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://www.frontendmentor.io/guides/how-to-submit-solutions) for tips on how to do this.
+This helped me better understand how TypeScript can make data structures explicit, improve code readability, and provide better editor support when working with API responses.
 
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
+### 3. Handling errors and improving user experience
 
-**⚠️ IMPORTANT ⚠️: With these premium challenges, please be sure not to upload the Figma design file to GitHub when you're submitting to the platform and sharing it around. If you've created a brand new project, the easiest way to do that is to copy across the `.gitignore` provided in this starter project.**
+I practiced handling unsuccessful API responses and network failures separately, displaying an appropriate message when a search does not succeed.
 
-## Sharing your solution
+This reinforced an important principle: an application should provide useful feedback instead of leaving users confused when something goes wrong.
 
-There are multiple places you can share your solution:
+### 4. Implementing a light and dark theme
 
-1. Share your solution page in the **#finished-projects** channel of the [community](https://www.frontendmentor.io/community).
-2. Share on [X (formerly Twitter)](https://x.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in your post. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on [LinkedIn](https://www.linkedin.com/company/frontend-mentor/).
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
+I implemented theme switching using React state and a `data-theme` attribute on the document's root element.
 
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback.
+This helped me understand how application state can control global styling and how CSS can respond to different theme settings.
 
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
+### 5. Building reusable components
 
-## Got feedback for us?
+I separated the interface into components such as `Header`, `Form`, `Card`, and `ErrorPage`.
 
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
+This gave me more practice organizing a React application into smaller, focused components that are easier to maintain and reuse.
 
-**Have fun building!** 🚀
+## 🚀 Running the Project Locally
+
+Make sure you have Node.js and npm installed.
+
+Clone the repository:
+
+```bash
+git clone https://github.com/sercansimsek/GitHub-user-search-app.git
+```
+
+Navigate to the project directory:
+
+```bash
+cd GitHub-user-search-app
+```
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+Run the linter:
+
+```bash
+npm run lint
+```
+
+## 🎯 Final Takeaway
+
+This project helped me deepen my understanding of how a React application communicates with an external API and transforms the returned data into an interactive user experience.
+
+The biggest takeaway was learning to manage the full lifecycle of dynamic data: collecting user input, making asynchronous requests, handling errors, updating state, and rendering the appropriate UI.
+
+It also gave me valuable practice with TypeScript, reusable components, and theme management.
