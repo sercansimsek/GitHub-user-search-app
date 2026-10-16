@@ -1,157 +1,103 @@
 # GitHub User Search App
 
-A React and TypeScript practice project built to improve my skills in working with third-party APIs, managing asynchronous data, and creating responsive, interactive user interfaces.
-
-The app allows users to search for GitHub profiles and explore information such as repositories, followers, following, location, and profile links. It also includes light and dark themes for a more personalized experience.
+A React and TypeScript practice project for exploring GitHub profiles through the GitHub REST API. The app lets you search by username, view profile details, and switch between light and dark themes.
 
 ## ✨ Features
 
-- Search for GitHub users by username
-- Display profile information dynamically using the GitHub REST API
-- Show profile details, including avatar, bio, repositories, followers, and following
-- Display an initial GitHub profile when the app loads
-- Handle unsuccessful searches and network errors
+- Search GitHub profiles by username
+- Trim and validate user input before making a request
+- Load the `octocat` profile when the app first opens
+- Display the user's avatar, name, username, bio, join date, public repositories, followers, and following
+- Show location and available social, website, and company information, with fallback text when details are missing
+- Handle unsuccessful API responses and network errors with user-facing feedback
 - Switch between light and dark themes
-- Responsive interface for different screen sizes
-- Type-safe data handling with TypeScript
+- Use reusable React components and responsive SCSS styling
 
 ## 🛠️ Technologies Used
 
-### Core technologies
-
-- **React 19** — Building reusable UI components and managing application state
-- **TypeScript** — Defining data structures and improving type safety
-- **Vite** — Providing the development server and production build tooling
-- **SCSS / Sass** — Organizing styles and implementing themes and responsive layouts
-- **HTML5** — Structuring the application
-- **CSS3** — Styling the interface, responsive layouts, and interactive states
-
-### API integration
-
-- **GitHub REST API** — Retrieving user profiles and their public GitHub information
-- **Fetch API** — Making asynchronous HTTP requests to the GitHub API
-
-### Development tools
-
-- **ESLint** — Identifying potential code issues and maintaining code quality
-- **React Hooks** — Managing component state and side effects with `useState` and `useEffect`
+- **React 19** — Component-based UI and state management
+- **TypeScript** — Typed props, event handling, and profile data
+- **Vite** — Development server and production build
+- **SCSS / Sass** — Styling, theme variants, and responsive layouts
+- **GitHub REST API** — Source of public GitHub profile data
+- **Fetch API** — Asynchronous HTTP requests
+- **React Hooks** — `useState` for application state and `useEffect` for initial data loading and theme updates
+- **ESLint** — Code-quality checks
 
 ## 📚 Most Crucial Learning
 
-### Connecting a React application to a real API
+### Managing the full API request lifecycle
 
-The most important lesson from this project was learning how to retrieve external data, manage the different outcomes of an API request, and display the results dynamically in a React application.
+The biggest learning from this project was connecting a React interface to a real API and managing the flow from user input to the rendered result.
 
-Instead of relying on static data, the app sends a request to the GitHub API using the requested username:
-
-```ts
-const response = await fetch(
-  `https://api.github.com/users/${encodeURIComponent(query)}`,
-);
-```
-
-The application then checks whether the request was successful, processes the JSON response, and updates the user state:
+The app trims the entered username, checks that it is not empty, safely encodes it for the request URL, and fetches the profile:
 
 ```ts
-if (!response.ok) {
-  setErrMsg("No results");
+const username = query.trim();
+
+if (!username) {
+  setErrMsg("Enter a GitHub username.");
   setHasError(true);
   return;
 }
 
-const data = await response.json();
-setUser(data);
+const response = await fetch(
+  `https://api.github.com/users/${encodeURIComponent(username)}`,
+);
 ```
+
+The app then checks whether the response succeeded, processes the JSON data, and updates React state. Unsuccessful responses and network failures are handled separately so the user receives useful feedback.
 
 This helped me understand the complete data flow:
 
-**User input → API request → Response handling → React state → UI update**
+**Input validation → API request → Response and error handling → State update → UI render**
 
-I also learned that API integration involves more than successfully fetching data. A reliable application must account for unsuccessful responses, network errors, and situations where the requested user cannot be found.
+### Other key learnings
 
-## 💡 Other Key Learnings
+- **React state and effects:** Managing the search query, selected profile, error state, and theme with `useState`; using `useEffect` to load an initial profile and apply the selected theme to the document.
+- **TypeScript with API data:** Describing profile fields through a `User` interface and typing component props and form events.
+- **Input validation and user feedback:** Preventing empty or whitespace-only searches before making a request and displaying messages when searches fail.
+- **Optional profile information:** Providing fallback text when details such as a user's location, bio, website, or social information are unavailable.
+- **Reusable components:** Separating the interface into `Header`, `Form`, `Card`, and `ErrorPage`.
+- **Theme switching:** Using React state and a root `data-theme` attribute to coordinate light and dark styling.
 
-### 1. Managing state and side effects in React
+## 🚀 Run Locally
 
-I practiced using `useState` to manage several aspects of the application:
+Make sure [Node.js](https://nodejs.org/) and npm are installed.
 
-- The username entered into the search field
-- The currently displayed GitHub user
-- Error messages and error states
-- The selected color theme
+1. Clone the repository:
 
-I also used `useEffect` to load an initial profile when the application starts and to update the document's theme attribute when the theme changes.
+   ```bash
+   git clone https://github.com/sercansimsek/GitHub-user-search-app.git
+   ```
 
-This reinforced how React state and side effects help keep an interface synchronized with application data.
+2. Open the project directory:
 
-### 2. Working with TypeScript and external data
+   ```bash
+   cd GitHub-user-search-app
+   ```
 
-I defined a `User` interface to describe the profile information used by the application.
+3. Install dependencies:
 
-This helped me better understand how TypeScript can make data structures explicit, improve code readability, and provide better editor support when working with API responses.
+   ```bash
+   npm install
+   ```
 
-### 3. Handling errors and improving user experience
+4. Start the development server:
 
-I practiced handling unsuccessful API responses and network failures separately, displaying an appropriate message when a search does not succeed.
+   ```bash
+   npm run dev
+   ```
 
-This reinforced an important principle: an application should provide useful feedback instead of leaving users confused when something goes wrong.
+## 🧰 Available Scripts
 
-### 4. Implementing a light and dark theme
-
-I implemented theme switching using React state and a `data-theme` attribute on the document's root element.
-
-This helped me understand how application state can control global styling and how CSS can respond to different theme settings.
-
-### 5. Building reusable components
-
-I separated the interface into components such as `Header`, `Form`, `Card`, and `ErrorPage`.
-
-This gave me more practice organizing a React application into smaller, focused components that are easier to maintain and reuse.
-
-## 🚀 Running the Project Locally
-
-Make sure you have Node.js and npm installed.
-
-Clone the repository:
-
-```bash
-git clone https://github.com/sercansimsek/GitHub-user-search-app.git
-```
-
-Navigate to the project directory:
-
-```bash
-cd GitHub-user-search-app
-```
-
-Install the dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-Run the linter:
-
-```bash
-npm run lint
-```
+| Command           | Description                                                 |
+| ----------------- | ----------------------------------------------------------- |
+| `npm run dev`     | Start the local development server                          |
+| `npm run build`   | Run TypeScript project checks and create a production build |
+| `npm run lint`    | Run ESLint                                                  |
+| `npm run preview` | Preview the production build locally                        |
 
 ## 🎯 Final Takeaway
 
-This project helped me deepen my understanding of how a React application communicates with an external API and transforms the returned data into an interactive user experience.
-
-The biggest takeaway was learning to manage the full lifecycle of dynamic data: collecting user input, making asynchronous requests, handling errors, updating state, and rendering the appropriate UI.
-
-It also gave me valuable practice with TypeScript, reusable components, and theme management.
+This project gave me practical experience building a data-driven React interface: validating user input, fetching external data asynchronously, handling errors, typing API-related data, and rendering optional profile information. It also strengthened my understanding of reusable components and theme management in a TypeScript and SCSS project.
